@@ -10,6 +10,7 @@ using System.Net;
 using System.Collections;
 
 
+
 namespace BakaPrince
 {
     class Config
@@ -17,9 +18,8 @@ namespace BakaPrince
         private Uri location;
         private JObject config;
 
+        public Dictionary<string, List<string>> Contributors = new Dictionary<string, List<string>>();
 
-        public List<string> Translators = new List<string>();
-        public List<string> Editors = new List<string>();
         public readonly string Title;
 
         private List<Image> images = new List<Image>();
@@ -38,12 +38,20 @@ namespace BakaPrince
                 ParseImages();
                 ParsePages();
 
+                ParseContributorList("authors");
+                ParseContributorList("artists");
+                ParseContributorList("translators");
+                ParseContributorList("editors");
+
+                
                 if (config["title"] != null)
                 {
                     Title = (string)config["title"];
                 }
             }
         }
+
+
 
         public string BaseURL
         {
@@ -76,11 +84,27 @@ namespace BakaPrince
             }
         }
 
-        private void Parse()
+        private void ParseContributorList(string key)
         {
+            // Init
+            if (!Contributors.ContainsKey(key))
+            {
+                Contributors.Add(key, new List<string>());
+            }
             
-        }
+            List<string> list = Contributors[key];
 
+            if (config[key] != null && config[key] is JArray)
+            {
+                foreach (JToken token in (JArray)config[key])
+                {
+                    if (token is JValue)
+                    {
+                        list.Add(token.ToString());
+                    }
+                }
+            }
+        }
 
         private void ParsePages() {
             if (config["pages"] != null)

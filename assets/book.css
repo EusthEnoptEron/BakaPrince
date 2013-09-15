@@ -35,7 +35,6 @@ p {
     }
 }
 
-
 /* Style footnotes */
 .fn {
     float: footnote;
@@ -72,11 +71,12 @@ p {
 }
 
 .page {
+    page-break-before: always;
     position: relative;
 	overflow: hidden;
 	
-    width: 5.8in;
-    height: 8.3in;
+    /*width: 5.8in;
+    height: 8.3in;*/
 }
 
 .counter, p {

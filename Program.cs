@@ -14,7 +14,7 @@ namespace BakaPrince
         //static string jsonLocation = @"E:\Dev\prince\hantsuki.json";
         //static string jsonLocation = @"E:\Dev\prince\gekkou.json";
         //static string jsonLocation = @"E:\Dev\prince\tsukumodo1.json";
-        static string jsonLocation = @"E:\Dev\prince\hakomari2.json";
+        static string jsonLocation = @"E:\Dev\prince\hakomari1.json";
 
         static void Main(string[] args)
         {

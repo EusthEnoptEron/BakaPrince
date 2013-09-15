@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using CsQuery;
+using System.Data.Entity.Design.PluralizationServices;
+using System.Globalization;
+
 
 namespace BakaPrince
 {
@@ -90,7 +94,37 @@ namespace BakaPrince
         }
 
         private void CloseBuilder(StringBuilder builder) {
+            // Add disclaimer
+            AppendDisclaimer(builder);
+
             builder.Append("</body></html>");
+        }
+
+        private void AppendDisclaimer(StringBuilder builder)
+        {
+            PluralizationService lang = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"));
+
+            CQ disclaimer = File.ReadAllText(Helper.GetAssetsPath() + "disclaimer.html");
+            CQ table = disclaimer.Find("table#contributors");
+
+            IEnumerator<KeyValuePair<string, List<string>>> it = conf.Contributors.GetEnumerator();
+            while (it.MoveNext())
+            {
+                string key = it.Current.Key;
+                key = key[0].ToString().ToUpper() + key.Substring(1);
+                if (it.Current.Value.Count == 1)
+                {
+                    key = lang.Singularize(key);
+                }
+
+                CQ tr = "<tr>";
+                ((CQ)("<th>")).Text(key).AppendTo(tr);
+                ((CQ)("<td>")).Text(String.Join(", ", it.Current.Value)).AppendTo(tr);
+                
+                table.Append(tr);
+            }
+
+            builder.Append(disclaimer.Render());
         }
     }
 

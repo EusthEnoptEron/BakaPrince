@@ -25,5 +25,15 @@ namespace BakaPrince
             return sb.ToString();
         }
 
+
+        public static string GetExePath()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        public static string GetAssetsPath()
+        {
+            return GetExePath() + "\\assets\\";
+        }
     }
 }

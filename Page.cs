@@ -173,7 +173,7 @@ namespace BakaPrince
             // Hakomari specific
             foreach (IDomElement star in dom.Find("p:contains(✵)"))
             {
-                star.InnerHTML = "<img src=\"" + (new Uri( AppDomain.CurrentDomain.BaseDirectory + "\\assets\\blackstar.jpg" )) + "\">";
+                star.InnerHTML = "<img src=\"" + (new Uri( Helper.GetAssetsPath() + "blackstar.jpg" )) + "\">";
             }
 
             return dom.Render();
