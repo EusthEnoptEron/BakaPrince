@@ -1,0 +1,31 @@
+{
+	"title": "Hanbun no Tsuki ga Noboru Sora",
+	"defaults": {
+		"prefix": "HanTsuki:Volume 1 ",
+		"pagebreak": true,
+		"notitle": true,
+		"wiki": "http://www.baka-tsuki.org/project/",
+		"entrypicture": true
+	},
+	"images": [
+		"http://pds.exblog.jp/pds/1/201007/03/05/d0161605_12402535.jpg",
+		"http://www.baka-tsuki.org/project/images/a/a4/Hantuki01_004.jpg",
+		"http://www.baka-tsuki.org/project/images/5/57/Hantuki01_005.jpg",
+		"http://www.baka-tsuki.org/project/images/b/b3/Hantuki01_006.jpg",
+		"http://www.baka-tsuki.org/project/images/8/81/Hantuki01_007.jpg",
+		"http://www.baka-tsuki.org/project/images/4/4b/Hantuki01_008.jpg"
+	],
+	"pages" : [
+		"Prologue",
+		"Chapter 1",
+		"Chapter 2",
+		"Chapter 3",
+		"Epilogue",
+		"Afterword"
+	],
+	"translators": [
+		"Kinny Riddle"
+	],
+	"editors": [
+	]
+}

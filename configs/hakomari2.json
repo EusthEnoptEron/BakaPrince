@@ -1,0 +1,38 @@
+{
+	"title": "Utsuro no Hako to Zero no Maria",
+	"defaults": {
+		"prefix": "Utsuro_no_Hako:Volume2_",
+		"wiki": "http://www.baka-tsuki.org/project/",
+		"entrypicture": true
+	},
+	"images": [
+		"http://www.baka-tsuki.org/project/images/9/9d/UtsuroNoHako2_1.jpg",
+		"http://www.baka-tsuki.org/project/images/3/35/UtsuroNoHako2_2.jpg",
+		"http://www.baka-tsuki.org/project/images/7/7b/UtsuroNoHako2_3.jpg",
+		"http://www.baka-tsuki.org/project/images/0/09/UtsuroNoHako2_4.jpg",
+		"http://www.baka-tsuki.org/project/images/2/27/UtsuroNoHako2_5.jpg",
+		"http://www.baka-tsuki.org/project/images/1/13/UtsuroNoHako2_6.jpg"
+	],
+	"pages" : [
+		{
+			"name": "Prologue",
+			"notitle": true
+		},
+		{"name" : "April 29", "title" : "April 29 (Wednesday) Shōwa Day"},
+		{"name" : "April 30", "title" : "April 30 (Thursday)"},
+		{"name" : "May 1", "title" : "May 1 (Friday)"},
+		{"name" : "May 2", "title" : "May 2 (Saturday)"},
+		{"name" : "May 3", "title" : "May 3 (Sunday) Constitution Memorial Day]"},
+		{"name" : "May 4", "title" : "May 4 (Monday) Greenery Day"},
+		{"name" : "May 5", "title" : "May 5 (Tuesday) Children's Day"},
+		{"name" : "May 18", "title" : "May 18 (Monday)"},
+		{"name" : "Author's Notes", "title" : "Author's Notes"}
+	],
+	"translators": [
+		"EusthEnoptEron"
+	],
+	"editors": [
+		"Kadi",
+		"grrarr"
+	]
+}

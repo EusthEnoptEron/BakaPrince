@@ -1,0 +1,31 @@
+{
+	"defaults": {
+		"prefix": "Toradora!:Volume1_",
+		"pagebreak": true,
+		"wiki": "http://www.baka-tsuki.org/project/"
+	},
+	"images": [
+		"http://www.baka-tsuki.org/project/images/a/a3/Vol.1cover.jpg",
+		"http://www.baka-tsuki.org/project/images/b/b9/Vol.1_colour_illustration_01.jpg",
+		"http://www.baka-tsuki.org/project/images/c/cc/Toradora_vol01_illustration_02.jpg",
+		"http://www.baka-tsuki.org/project/images/f/f0/Toradora_vol01_illustration_03.jpg",
+		"http://www.baka-tsuki.org/project/images/2/2e/Toradora_vol01_illustration_04.jpg",
+		"http://www.baka-tsuki.org/project/images/9/97/Toradora_vol01_illustration_05.jpg",
+		"http://www.baka-tsuki.org/project/images/b/ba/Toradora_vol01_illustration_06-07.jpg",
+		"http://www.baka-tsuki.org/project/images/f/f0/Toradora_vol01_illustration_08.jpg"
+	],
+	"pages" : [
+		"Chapter1",
+		"Chapter2",
+		"Chapter3",
+		"Chapter4",
+		"Chapter5",
+		"Chapter6",
+		"Author's Notes"
+		],
+		"translators": [
+		"Kinny Riddle"
+		],
+		"editors": [
+		]
+	}

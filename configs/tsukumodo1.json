@@ -1,0 +1,28 @@
+{
+	"title": "Tsukumodo Antique Shop",
+	"defaults": {
+		"prefix": "Tsukumodo:Volume 1 ",
+		"pagebreak": true,
+		"wiki": "http://www.baka-tsuki.org/project/"
+	},
+	"images": [
+		"http://www.baka-tsuki.org/project/images/f/f3/Tsukumodo_Cover.jpg",
+		"http://www.baka-tsuki.org/project/images/5/5f/Tsukumodo_002.jpg",
+		"http://www.baka-tsuki.org/project/images/6/66/Tsukumodo_003.jpg",
+		"http://www.baka-tsuki.org/project/images/8/82/Tsukumodo_004.jpg",
+		"http://www.baka-tsuki.org/project/images/5/5e/Tsukumodo_005.jpg"
+	],
+	"pages" : [
+		"Prologue",
+		"Coincidence",
+		"Statue",
+		"Memories and Notes",
+		"Present",
+		"Afterword"
+		],
+		"translators": [
+			"EusthEnoptEron"
+		],
+		"editors": [
+		]
+	}
