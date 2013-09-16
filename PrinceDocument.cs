@@ -98,8 +98,15 @@ namespace BakaPrince
                     if (i == conf.Images.Length)
                         outputDocument.AddPage(document.Pages[0]);
                 }
-            }
 
+                // Copy metadata
+                IEnumerator<KeyValuePair<string, PdfItem>> it = document.Info.Elements.GetEnumerator();
+
+                while(it.MoveNext()) {
+                    outputDocument.Info.Elements[it.Current.Key] = document.Info.Elements[it.Current.Key];
+                }
+
+            }
             outputDocument.Save(path);
         }
 
@@ -113,7 +120,15 @@ namespace BakaPrince
 
 
         private void InitBuilder(StringBuilder builder) {
-            builder.Append("<html><head></head><body>");
+            builder.Append(String.Format(@"
+                <html>
+                    <head>
+                        <title>{0}</title>
+                        <meta name=""author"" content=""{1}""/>
+                        <meta name=""generator"" content=""BakaPrince""/>
+                    </head>
+                <body>", conf.Title.Replace(@"""", @"\"""),
+                         String.Join(", ", conf.Contributors["authors"]).Replace(@"""", @"\""")));
             
             // Add disclaimer
             AppendDisclaimer(builder);

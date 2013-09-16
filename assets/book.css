@@ -67,6 +67,7 @@ p {
     font-size: .8em !important;
     font-family: 'Alegreya', serif !important;
     color: black !important;
+    border-top: 1px solid black;
 }
 
 
