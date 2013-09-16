@@ -35,3 +35,9 @@ List of contributing translators.
 
 #### editors
 List of contributing editors.
+
+#### authors
+Writer(s) involved in the light novel at hand.
+
+#### artists
+Artist(s) involved in the light novel at hand.
