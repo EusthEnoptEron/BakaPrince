@@ -41,6 +41,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\libs\Net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>..\..\..\libs\PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Prince">
       <HintPath>..\..\..\libs\Prince.dll</HintPath>
     </Reference>

@@ -21,6 +21,7 @@ namespace BakaPrince
         public Dictionary<string, List<string>> Contributors = new Dictionary<string, List<string>>();
 
         public readonly string Title;
+        public readonly string Project;
 
         private List<Image> images = new List<Image>();
         private List<Page> pages = new List<Page>();
@@ -47,6 +48,10 @@ namespace BakaPrince
                 if (config["title"] != null)
                 {
                     Title = (string)config["title"];
+                }
+                if (config["project"] != null)
+                {
+                    Project = (string)config["project"];
                 }
             }
         }

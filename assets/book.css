@@ -12,6 +12,32 @@ p {
 	font-size: 1.2em;
 }
 
+
+#disclaimer {
+    string-set: pagecnt "";
+}
+
+#contributors {
+    float: bottom;
+    border-collapse:collapse;
+    width: 100%;
+
+    margin-bottom: 1in;
+    
+}
+
+#contributors th,
+#contributors td {
+    text-align: left;
+    padding: 2px 5px;
+    border: 1px solid black;
+}
+
+    #contributors th.header {
+        background: black;
+        color: white;
+    }
+
 /*********************************************************************
     PRINCEXML  
  ********************************************************************/
@@ -74,7 +100,6 @@ p {
     page-break-before: always;
     position: relative;
 	overflow: hidden;
-	
     /*width: 5.8in;
     height: 8.3in;*/
 }
@@ -116,3 +141,4 @@ p {
 @prince-pdf {
     /*prince-pdf-page-layout: two-column*/
 }
+

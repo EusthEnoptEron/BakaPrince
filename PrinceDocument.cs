@@ -7,6 +7,8 @@ using System.IO;
 using CsQuery;
 using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 
 
 namespace BakaPrince
@@ -75,9 +77,34 @@ namespace BakaPrince
             Console.WriteLine("Cleaning...");
             // Delete CSS
             File.Delete(tempFile);
+
+
+            MoveDisclaimer(path);
         }
 
-        private void CompileCss(Image[] images, StringBuilder builder) {
+        private void MoveDisclaimer(string path)
+        {
+            
+            PdfDocument outputDocument = new PdfDocument();
+
+            using (PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Import))
+            {
+                for (int i = 0; i < document.Pages.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        outputDocument.AddPage(document.Pages[i]);
+                    }
+                    if (i == conf.Images.Length)
+                        outputDocument.AddPage(document.Pages[0]);
+                }
+            }
+
+            outputDocument.Save(path);
+        }
+
+        private void CompileCss(Image[] images, StringBuilder builder)
+        {
             foreach (Image image in images)
             {
                 builder.Append(image.Rules);
@@ -87,6 +114,9 @@ namespace BakaPrince
 
         private void InitBuilder(StringBuilder builder) {
             builder.Append("<html><head></head><body>");
+            
+            // Add disclaimer
+            AppendDisclaimer(builder);
         }
 
         private void InitCss(StringBuilder builder)
@@ -94,9 +124,6 @@ namespace BakaPrince
         }
 
         private void CloseBuilder(StringBuilder builder) {
-            // Add disclaimer
-            AppendDisclaimer(builder);
-
             builder.Append("</body></html>");
         }
 
@@ -106,6 +133,10 @@ namespace BakaPrince
 
             CQ disclaimer = File.ReadAllText(Helper.GetAssetsPath() + "disclaimer.html");
             CQ table = disclaimer.Find("table#contributors");
+
+            // Append header row
+            if(!conf.Title.Equals(""))
+                table.Append("<tr><th colspan='2' class='header'></th></tr>").Find(".header").Text(conf.Title);
 
             IEnumerator<KeyValuePair<string, List<string>>> it = conf.Contributors.GetEnumerator();
             while (it.MoveNext())
@@ -124,7 +155,15 @@ namespace BakaPrince
                 table.Append(tr);
             }
 
+           
+            if(!conf.Project.Equals(""))
+                table.Append("<tr><th>Project page</th><td></td></tr>").Find("tr:last td").Append(String.Format("<a href='{0}'>{0}</a>", conf.Project));
+
+            table.Append(String.Format("<tr><th>PDF creation date</th><td>{0}</td>", DateTime.Today.ToString("yyyy-MM-dd")));
             builder.Append(disclaimer.Render());
+
+            string rendered = disclaimer.Render();
+
         }
     }
 
