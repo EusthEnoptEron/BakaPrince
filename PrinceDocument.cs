@@ -87,27 +87,15 @@ namespace BakaPrince
             
             PdfDocument outputDocument = new PdfDocument();
 
-            using (PdfDocument document = PdfReader.Open(path, PdfDocumentOpenMode.Import))
+            using (PdfDocument importDoc = PdfReader.Open(path, PdfDocumentOpenMode.Import))
+            using (PdfDocument modifyDoc = PdfReader.Open(path, PdfDocumentOpenMode.Modify))
             {
-                for (int i = 0; i < document.Pages.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        outputDocument.AddPage(document.Pages[i]);
-                    }
-                    if (i == conf.Images.Length)
-                        outputDocument.AddPage(document.Pages[0]);
-                }
+                PdfPage page = importDoc.Pages[0];
+                modifyDoc.Pages.RemoveAt(0);
+                modifyDoc.Pages.Insert(conf.Images.Length, page);
 
-                // Copy metadata
-                IEnumerator<KeyValuePair<string, PdfItem>> it = document.Info.Elements.GetEnumerator();
-
-                while(it.MoveNext()) {
-                    outputDocument.Info.Elements[it.Current.Key] = document.Info.Elements[it.Current.Key];
-                }
-
+                modifyDoc.Save(path);
             }
-            outputDocument.Save(path);
         }
 
         private void CompileCss(Image[] images, StringBuilder builder)
