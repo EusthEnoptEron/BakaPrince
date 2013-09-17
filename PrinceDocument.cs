@@ -152,6 +152,10 @@ namespace BakaPrince
                 {
                     key = lang.Singularize(key);
                 }
+                else if (it.Current.Value.Count == 0)
+                {
+                    continue;
+                }
 
                 CQ tr = "<tr>";
                 ((CQ)("<th>")).Text(key).AppendTo(tr);

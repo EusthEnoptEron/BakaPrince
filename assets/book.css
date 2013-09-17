@@ -71,6 +71,7 @@ p {
 }
 /* Class for setting page titles */
 .chapterstart {    string-set: chapter content() chapter-cache content() }
+
 .image {
     position: relative;
     overflow: hidden;

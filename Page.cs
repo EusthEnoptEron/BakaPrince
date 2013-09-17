@@ -18,6 +18,8 @@ namespace BakaPrince
         public string Title = null;
         public bool Pagebreak = true;
         public bool Notitle = false;
+        public bool Noheader = false;
+
         public string Wiki = "http://www.baka-tsuki.org/project/";
         public bool EntryPicture = false;
 
@@ -41,6 +43,7 @@ namespace BakaPrince
                     case "title": Title = it.Current.Value.ToString(); break;
                     case "pagebreak": Pagebreak = (bool)it.Current.Value; break;
                     case "notitle": Notitle = (bool)it.Current.Value; break;
+                    case "noheader": Noheader = (bool)it.Current.Value; break;
                     case "wiki": Wiki = it.Current.Value.ToString(); break;
                     case "entrypicture": EntryPicture = (bool)it.Current.Value; break;
                     default: break;
@@ -78,9 +81,6 @@ namespace BakaPrince
                 if (Title == null)
                     Title = Name;
 
-                if (Notitle)
-                    Title = "";
-
                 string url = Wiki + "api.php?action=parse&format=json&page=" + Prefix + Name;
 
                 Console.WriteLine("Fetching page {0}", Name);
@@ -100,7 +100,7 @@ namespace BakaPrince
                 html = "<h2>" + Title + "</h2>" + html;
             }
 
-             html = "<span class=\"invisible chapterstart\">"+Title+"</span>" + html;
+             html = "<span class=\"invisible chapterstart\">" + (Noheader ? "" : Title) + "</span>" + html;
             
            
             // Make sure page break is set
@@ -129,6 +129,8 @@ namespace BakaPrince
 
                 if (images.Count == 0 && EntryPicture)
                 {
+                    // We can view it as a full-fledged image since we don't need to worry about text-flow
+                    image.Sashie = false;
                     dom.Before(image.HTML);
                 }
                 else
