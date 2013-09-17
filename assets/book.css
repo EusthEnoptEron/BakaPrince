@@ -1,66 +1,42 @@
 @import url(http://fonts.googleapis.com/css?family=Alegreya);
-
+@import url(http://fonts.googleapis.com/css?family=Gentium+Book+Basic);
+@import url(http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic|Gentium+Book+Basic:400,400italic,700,700italic&subset=latin,latin-ext);
 
 /*********************************************************************
     LAYOUT  
  ********************************************************************/
 p {
-	text-indent: 0.3in;
-	padding: 0;
-	margin: 0;
-	font-family: 'Alegreya', serif;
-	font-size: 1.2em;
+    text-indent: 0.3in;
+    padding: 0;
+    margin: 0;
+    font-family: 'PT Serif', serif;
+    font-size: 1.1em;
 }
-
-
-#disclaimer {
-    string-set: pagecnt "";
-}
-
+#disclaimer {    string-set: pagecnt "" }
+#disclaimer h2 {    prince-bookmark-label: none }
 #contributors {
     float: bottom;
-    border-collapse:collapse;
+    border-collapse: collapse;
     width: 100%;
-
     margin-bottom: 1in;
-    
 }
-
 #contributors th,
 #contributors td {
     text-align: left;
     padding: 2px 5px;
     border: 1px solid black;
 }
-
-    #contributors th.header {
-        background: black;
-        color: white;
-    }
+#contributors th.header {
+    background: black;
+    color: white;
+}
 
 /*********************************************************************
     PRINCEXML  
  ********************************************************************/
 @page {
     /* Document format*/
-    size: 5.8in 8.3in;
-
-    /* Set margin to "0" for inline pictures */
-    margin: .6in;
-
-    @top-center {
-        content: string(chapter);
-         /*border-bottom: 1px solid #EEE;*/
-    }
-
-    @bottom-center {
-        content: string(pagecnt);
-        font-style: italic;
-
-        /*border-top: 1px solid #EEE;*/
-    }
 }
-
 /* Style footnotes */
 .fn {
     float: footnote;
@@ -69,8 +45,6 @@ p {
     color: black !important;
     border-top: 1px solid black;
 }
-
-
 /* General class for elements with a PrinceXML effect that have to be hidden */
 .invisible {
     visibility: hidden;
@@ -80,66 +54,47 @@ p {
     padding: 0;
     display: block;
 }
-
 /* Class for setting page titles */
-.chapterstart {
-    string-set: chapter content() chapter-cache content();
-}
-
+.chapterstart {    string-set: chapter content() chapter-cache content() }
 .image {
     position: relative;
-	overflow: hidden;
-	background-position: left top;
-	background-size: 100% 100%;
-    /*
-	page-break-before: avoid;
-	page: cover;
-    */
+    overflow: hidden;
+    background-position: left top;
+    background-size: 100% 100%;
+    /*: ;
+    page-break-before: avoid;
+    page: cover;*/
 }
-
 .page {
     page-break-before: always;
     position: relative;
-	overflow: hidden;
-    /*width: 5.8in;
+    overflow: hidden;
+    /*width: 5.8in;;
     height: 8.3in;*/
 }
-
-.counter, p {
-    string-set: pagecnt counter(page);
-}
-
-
+.counter,
+p {    string-set: pagecnt counter(page) }
 /* Normal sashies always appear at the top and have no footer */
 .sashie {
     float: top;
     string-set: pagecnt "" chapter content();
-
     margin-top: -0.6in;
     margin-left: -0.6in;
 }
-
-
 /* landscape sashies get their own @page definition */
 .sashie.landscape {
     float: none;
     margin-top: 0;
     margin-left: 0;
 }
-
 .sashie:after {
     float: top;
     display: inline;
     content: "";
     string-set: chapter string(chapter-cache);
 }
-
 /* Break page  */
-.pagebreak {
-    page-break-before: always;
-}
-
+.pagebreak {    page-break-before: always }
 @prince-pdf {
     /*prince-pdf-page-layout: two-column*/
 }
-
