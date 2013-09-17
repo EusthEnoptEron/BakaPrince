@@ -36,7 +36,22 @@ p {
  ********************************************************************/
 @page {
     /* Document format*/
+    size: 5.8in 8.3in;
+    /* Set margin to "0" for inline pictures */
+    margin: .6in;
+
+    @top-center {
+        content: string(chapter);
+        /*border-bottom: 1px solid #EEE;*/
+    }
+
+    @bottom-center {
+        content: string(pagecnt);
+        font-style: italic;
+        /*border-top: 1px solid #EEE;*/
+    }
 }
+
 /* Style footnotes */
 .fn {
     float: footnote;
@@ -95,6 +110,7 @@ p {    string-set: pagecnt counter(page) }
 }
 /* Break page  */
 .pagebreak {    page-break-before: always }
+
 @prince-pdf {
     /*prince-pdf-page-layout: two-column*/
 }
