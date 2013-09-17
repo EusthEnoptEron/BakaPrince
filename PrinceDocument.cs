@@ -13,39 +13,58 @@ using PdfSharp.Pdf.IO;
 
 namespace BakaPrince
 {
+    /// <summary>
+    /// Document that has to be converted to a PDF file.
+    /// </summary>
     class PrinceDocument
     {
         private Prince prince;
         private Config conf;
 
+        /// <summary>
+        /// Initialize document.
+        /// </summary>
+        /// <param name="conf">Config object that defines which pages and images to use.</param>
+        /// <param name="princePath">Path to the PrinceXML binary.</param>
         public PrinceDocument(Config conf, string princePath)
         {
             prince = new Prince(princePath);
+
+            // We are dealing with HTML
             prince.SetHTML(true);
+
+            // Add default stylesheets
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\mediawiki.css");
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\book.css");
 
             this.conf = conf;
         }
 
+
+        /// <summary>
+        /// Add a stylesheet to the PDF render process.
+        /// </summary>
+        /// <param name="cssPath">Path to the stylesheet.</param>
         public void AddStyleSheet(string cssPath)
         {
             prince.AddStyleSheet(cssPath);
         }
 
+
+        /// <summary>
+        /// Create the PDF file.
+        /// </summary>
+        /// <param name="path">Path where to save the file.</param>
         public void Create(string path) {
+            // Set base url to the Wiki URL (for images that we didn't catch, etc.)
             prince.SetBaseURL(conf.BaseURL);
 
-            StringBuilder cssBuilder = new StringBuilder();
+            // Init builder
             StringBuilder htmlBuilder = new StringBuilder();
-            string tempFile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".css";
-
             InitBuilder(htmlBuilder);
-            InitCss(cssBuilder);
-
-            // Compile front images
+         
+            // Compile color images
             Console.WriteLine("Creating color pages...");
-            CompileCss(conf.Images, cssBuilder);
             foreach (Image image in conf.Images)
             {
                 htmlBuilder.Append(image.HTML);
@@ -57,15 +76,9 @@ namespace BakaPrince
             foreach (Page page in conf.Pages)
             {
                 htmlBuilder.Append(page.HTML);
-                CompileCss(page.Images, cssBuilder);
             }
 
             CloseBuilder(htmlBuilder);
-
-            // Create CSS
-            File.WriteAllText(tempFile, cssBuilder.ToString());
-
-            prince.AddStyleSheet(tempFile);
 
             Console.WriteLine("Writing PDF to {0}...", new FileInfo(path).FullName);
             using (Stream outputStream = new FileStream(path, FileMode.Create))
@@ -74,10 +87,6 @@ namespace BakaPrince
             }
 
             Console.WriteLine("Cleaning...");
-            // Delete CSS
-            File.Delete(tempFile);
-
-
             MoveDisclaimer(path);
 
             Console.WriteLine("Et voilà -- your PDF is ready.");
@@ -123,9 +132,6 @@ namespace BakaPrince
             AppendDisclaimer(builder);
         }
 
-        private void InitCss(StringBuilder builder)
-        {
-        }
 
         private void CloseBuilder(StringBuilder builder) {
             builder.Append("</body></html>");

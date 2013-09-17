@@ -61,7 +61,7 @@ namespace BakaPrince
                 {
                     classes += " landscape";
                 }
-                string html = String.Format("<div class=\"image {0} {1}\"></div>", ID, classes);
+                string html = String.Format("<div class=\"image {0} {1}\"></div>{2}", ID, classes, Style);
 
                 //if (Sashie && Height >= Width)
                 //{
@@ -72,6 +72,13 @@ namespace BakaPrince
             }
         }
 
+        public string Style
+        {
+            get
+            {
+                return String.Format("<style type='text/css'>{0}</style>", Rules);
+            }
+        }
         public string Rules
         {
             get
