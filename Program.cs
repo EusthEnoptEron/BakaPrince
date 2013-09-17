@@ -14,7 +14,7 @@ namespace BakaPrince
     {
         static void Main(string[] args)
         {
-            args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c" };
+            //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c" };
             bool showHelp = false;
             string configPath = null;
             string outputPath = null;
