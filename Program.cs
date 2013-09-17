@@ -108,7 +108,7 @@ namespace BakaPrince
                 }
             }
 
-            throw new PrinceNotFoundException("Could not find an installation of PrinceXML on your system.");
+            throw new PrinceNotFoundException("Could not find an installation of PrinceXML on your system. Download it at http://www.princexml.com/");
         }
 
         private static string DetermineOutputPath(string configPath)
