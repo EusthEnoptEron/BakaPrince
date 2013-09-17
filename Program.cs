@@ -52,7 +52,7 @@ namespace BakaPrince
 
             if (princePath == null) {
                 try {
-                    GetPrincePath();
+                    princePath = GetPrincePath();
                 } catch(PrinceNotFoundException e) {
                     Console.WriteLine(e.Message);
                     return;
@@ -68,7 +68,7 @@ namespace BakaPrince
             Config conf = new Config(configPath);
 
             // Generate document
-            PrinceDocument doc = new PrinceDocument(conf);
+            PrinceDocument doc = new PrinceDocument(conf, princePath);
 
             // Write PDF
             doc.Create(outputPath);
@@ -101,7 +101,7 @@ namespace BakaPrince
                         if ( (string)sk.GetValue("DisplayName") == "Prince"
                             && (string)sk.GetValue("Publisher") == "Yes Logic Pty Ltd")
                         {
-                            return (string)sk.GetValue("InstallLocation");
+                            return ((string)sk.GetValue("InstallLocation")) + @"Engine\bin\prince.exe";
                         }
                     }
 

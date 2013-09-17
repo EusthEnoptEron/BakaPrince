@@ -15,11 +15,10 @@ namespace BakaPrince
 {
     class PrinceDocument
     {
-        private static string princePath = @"E:\Applications\Prince\Engine\bin\prince.exe";
         private Prince prince;
         private Config conf;
 
-        public PrinceDocument(Config conf)
+        public PrinceDocument(Config conf, string princePath)
         {
             prince = new Prince(princePath);
             prince.SetHTML(true);
