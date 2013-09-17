@@ -68,7 +68,7 @@ namespace BakaPrince
 
             prince.AddStyleSheet(tempFile);
 
-            Console.WriteLine("Making PDF...");
+            Console.WriteLine("Writing PDF to {0}...", new FileInfo(path).FullName);
             using (Stream outputStream = new FileStream(path, FileMode.Create))
             {
                 prince.ConvertString(htmlBuilder.ToString(), outputStream);
@@ -80,6 +80,8 @@ namespace BakaPrince
 
 
             MoveDisclaimer(path);
+
+            Console.WriteLine("Et voilà -- your PDF is ready.");
         }
 
         private void MoveDisclaimer(string path)

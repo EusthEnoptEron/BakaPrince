@@ -82,21 +82,10 @@ namespace BakaPrince
                     Title = "";
 
                 string url = Wiki + "api.php?action=parse&format=json&page=" + Prefix + Name;
-                string tempFile = System.IO.Path.GetTempPath() + Helper.CalculateMD5Hash(url) + ".json";
-                string response = "";
-               
-                if(File.Exists(tempFile)) {
-                    Console.WriteLine("Fetching {0} from cache...", Name);
-                    response = File.ReadAllText(tempFile);
-                } else {
-                    Console.WriteLine("Fetching {0} from internet...", Name);
-                    using(WebClient client = new WebClient()) {
-                        response = client.DownloadString(url);
-                        File.WriteAllText(tempFile, response);
-                    }
-                }
-                
-                html = PrepareHTML((string)JObject.Parse(response).SelectToken("parse.text.*"));
+
+                Console.WriteLine("Fetching page {0}", Name);
+                string myString = Helper.GetString(new Uri(url));
+                html = PrepareHTML((string)JObject.Parse(Helper.GetString(new Uri(url))).SelectToken("parse.text.*"));
               
                 fetched = true;
             }

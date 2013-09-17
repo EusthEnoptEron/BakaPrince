@@ -23,19 +23,11 @@ namespace BakaPrince
 
         public Image(string url, Uri basePath) {
             ID = "i" + Helper.CalculateMD5Hash(url);
-
             Uri location = new Uri(basePath, url);
 
-            Path = System.IO.Path.GetTempPath() + ID;
-            if (File.Exists(Path))
-            {
-                location = new Uri(Path);
-            }
-
-            
             // Load image
-            WebRequest req = HttpWebRequest.Create(location);
-            using (Stream stream = req.GetResponse().GetResponseStream())
+            Console.WriteLine("Fetching image {0}", url);
+            using (Stream stream = Helper.GetFile(location, ID))
             {
                 System.Drawing.Image image = Bitmap.FromStream(stream);
                 if (image.Width > image.Height)
@@ -50,13 +42,9 @@ namespace BakaPrince
                     Width = a5width;
                     Height = a5width / image.Width * image.Height;
                 }
-
-                // Save image
-                if (!File.Exists(Path))
-                {
-                    image.Save(Path);
-                }
+            
             }
+            Path = Helper.GetTemp(ID);
         }
 
     
