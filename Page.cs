@@ -156,6 +156,8 @@ namespace BakaPrince
                 oldFootnote.Remove();
                 sup.Before(footnote).Remove();
             }
+            // Remove possible reference title
+            dom.Find("#references").Prev("h1, h2, h3").Remove();
 
             // Remove edit links
             dom.Find(".editsection, #toc").Remove();
