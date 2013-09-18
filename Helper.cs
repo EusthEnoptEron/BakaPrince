@@ -81,5 +81,13 @@ namespace BakaPrince
             return GetExePath() + "\\assets\\";
         }
 
+
+        public static Uri Cwd
+        {
+            get
+            {
+                return new Uri(Directory.GetCurrentDirectory() + "\\");
+            }
+        }
     }
 }

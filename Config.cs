@@ -19,13 +19,15 @@ namespace BakaPrince
         public readonly string Title;
         public readonly string Project;
 
+        public readonly List<Uri> StyleSheets = new List<Uri>(); 
+
         private readonly List<Image> _images = new List<Image>();
         private readonly List<Page> _pages = new List<Page>();
-
+       
 
         public Config(string jsonLocation)
         {
-            _location = new Uri(jsonLocation);
+            _location = new Uri(Helper.Cwd, jsonLocation);
 
             WebRequest req = WebRequest.Create(_location);
             using (Stream stream = req.GetResponse().GetResponseStream())
@@ -34,6 +36,7 @@ namespace BakaPrince
 
                 ParseImages();
                 ParsePages();
+                ParseStyleSheets();
 
                 ParseContributorList("authors");
                 ParseContributorList("artists");
@@ -49,6 +52,14 @@ namespace BakaPrince
                 {
                     Project = (string)_config["project"];
                 }
+            }
+        }
+
+        private void ParseStyleSheets()
+        {
+            if (_config["stylesheets"] != null)
+            {
+                StyleSheets.AddRange(_config["stylesheets"].OfType<JValue>().Select(token => new Uri(_location, token.ToString())));
             }
         }
 

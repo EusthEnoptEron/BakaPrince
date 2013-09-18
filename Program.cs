@@ -11,11 +11,12 @@ namespace BakaPrince
     {
         static void Main(string[] args)
         {
-            //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c" };
+            //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c", "-s", "stylesheet.css" };
             bool showHelp = false;
             string configPath;
             string outputPath = null;
             string princePath = null;
+            string stylesheet = null;
 
             var p = new OptionSet
             {
@@ -23,10 +24,12 @@ namespace BakaPrince
                    v => princePath = v },
                 { "o", "where to write the resulting PDF",
                    v => outputPath = v },
-                { "h|help",  "show this message and exit", 
-                   v => showHelp = v != null },
+                { "s|stylesheet=", "specify an additional stylesheet to use",
+                   v => stylesheet = v },
                 { "c|cache", "enable caching", 
-                   v => Helper.Caching = v != null}
+                   v => Helper.Caching = v != null},
+                { "h|help",  "show this message and exit", 
+                   v => showHelp = v != null }
             };
 
             List<string> extra;
@@ -67,6 +70,11 @@ namespace BakaPrince
 
             // Generate document
             PrinceDocument doc = new PrinceDocument(conf, princePath);
+
+            if (stylesheet != null)
+            {
+                doc.AddStyleSheet(new Uri(Helper.Cwd, stylesheet).AbsolutePath);
+            }
 
             // Write PDF
             doc.Create(outputPath);
@@ -115,7 +123,7 @@ namespace BakaPrince
             string outputPath;
 
             // Start by normalizing config path
-            Uri inputPath = new Uri(configPath);
+            Uri inputPath = new Uri(Helper.Cwd, configPath);
             if (inputPath.ToString().StartsWith("file://"))
             {
                 // Local path -> try to make name

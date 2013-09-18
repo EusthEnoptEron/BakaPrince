@@ -35,6 +35,12 @@ namespace BakaPrince
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\mediawiki.css");
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\book.css");
 
+            // Add additional stylesheets
+            foreach (Uri path in conf.StyleSheets)
+            {
+                prince.AddStyleSheet(path.AbsolutePath);
+            }
+
             this.conf = conf;
         }
 

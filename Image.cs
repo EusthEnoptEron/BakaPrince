@@ -96,7 +96,7 @@ namespace BakaPrince
 	                    width: {1}in;
 	                    height: {2}in;
                      }}
-                ", Id, Width, Height, new Uri(Path), (Sashie && Height > Width) ? "auto" : "p" + Id);
+                ", Id, Width, Height, new Uri(Helper.Cwd, Path), (Sashie && Height > Width) ? "auto" : "p" + Id);
             }
         }
     }
