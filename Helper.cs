@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BakaPrince
 {
@@ -16,22 +13,22 @@ namespace BakaPrince
         public static string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hash = md5.ComputeHash(inputBytes);
 
             // step 2, convert byte array to hex string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+            var sb = new StringBuilder();
+            foreach (byte t in hash)
             {
-                sb.Append(hash[i].ToString("X2"));
+                sb.Append(t.ToString("X2"));
             }
             return sb.ToString();
         }
 
         public static string GetTemp(string tempName)
         {
-            return System.IO.Path.GetTempPath() + tempName; ;       
+            return Path.GetTempPath() + tempName;
         }
 
         public static Stream GetFile(Uri path, string tempName)
@@ -43,11 +40,11 @@ namespace BakaPrince
             {
                 try
                 {
-                    WebRequest req = HttpWebRequest.Create(path);
+                    WebRequest req = WebRequest.Create(path);
                     using (FileStream fileStream = File.Create(p))
                     using (Stream responseStream = req.GetResponse().GetResponseStream())
                     {
-                        responseStream.CopyTo(fileStream);
+                        if (responseStream != null) responseStream.CopyTo(fileStream);
                     }
                 }
                 catch (WebException e)
@@ -66,7 +63,7 @@ namespace BakaPrince
             string result;
             using (Stream stream = GetFile(path, CalculateMD5Hash(path.ToString()) + ".string"))
             {
-                StreamReader reader = new StreamReader(stream);
+                var reader = new StreamReader(stream);
                 result = reader.ReadToEnd();
             }
 

@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using CsQuery;
 
 namespace BakaPrince
@@ -24,13 +19,9 @@ namespace BakaPrince
         public bool EntryPicture = false;
 
 
-        private bool fetched = false;
-        private string html = "";
-        private List<Image> images = new List<Image>();
-
-        public Page()
-        {
-        }
+        private bool _fetched;
+        private string _html = "";
+        private readonly List<Image> _images = new List<Image>();
 
         public void ApplyConfig(JObject values) {
             IEnumerator<KeyValuePair<string, JToken>> it = values.GetEnumerator();
@@ -46,18 +37,17 @@ namespace BakaPrince
                     case "noheader": Noheader = (bool)it.Current.Value; break;
                     case "wiki": Wiki = it.Current.Value.ToString(); break;
                     case "entrypicture": EntryPicture = (bool)it.Current.Value; break;
-                    default: break;
                 }
             }
         }
 
-        public string HTML
+        public string Html
         {
             get
             {
                 Fetch();
 
-                return html;
+                return _html;
             }
         }
 
@@ -69,14 +59,14 @@ namespace BakaPrince
             get
             {
                 Fetch();
-                return images.ToArray();
+                return _images.ToArray();
             }
         }
 
 
 
         private void Fetch() {
-            if (!fetched)
+            if (!_fetched)
             {
                 if (Title == null)
                     Title = Name;
@@ -84,14 +74,13 @@ namespace BakaPrince
                 string url = Wiki + "api.php?action=parse&format=json&page=" + Prefix + Name;
 
                 Console.WriteLine("Fetching page {0}", Name);
-                string myString = Helper.GetString(new Uri(url));
-                html = PrepareHTML((string)JObject.Parse(Helper.GetString(new Uri(url))).SelectToken("parse.text.*"));
+                _html = PrepareHtml((string)JObject.Parse(Helper.GetString(new Uri(url))).SelectToken("parse.text.*"));
               
-                fetched = true;
+                _fetched = true;
             }
         }
 
-        private string PrepareHTML(string html)
+        private string PrepareHtml(string html)
         {
 
             // Make title
@@ -116,38 +105,36 @@ namespace BakaPrince
 
 
             // Find images
-            foreach(IDomElement _a in dom.Find("a.image")) {
-                CQ a = new CQ(_a);
-                CQ img = new CQ(a.Find("img"));
+            foreach(IDomElement aNode in dom.Find("a.image")) {
+                var a = new CQ(aNode);
+                var img = new CQ(a.Find("img"));
 
-                Image image = new Image(img.Attr("src").Replace("/thumb", "")
-                   , new Uri(Wiki));
-
-                image.Sashie = true;
+                var image = new Image(img.Attr("src").Replace("/thumb", "")
+                   , new Uri(Wiki)) {Sashie = true};
 
                 CQ node = a.Closest(".thumb").Add(a).First();
 
-                if (images.Count == 0 && EntryPicture)
+                if (_images.Count == 0 && EntryPicture)
                 {
                     // We can view it as a full-fledged image since we don't need to worry about text-flow
                     image.Sashie = false;
-                    dom.Before(image.HTML);
+                    dom.Before(image.Html);
                 }
                 else
                 {
-                    node.Before(image.HTML);
+                    node.Before(image.Html);
                     //node.After("<span class=\"image-stopper\"></span>");
                 }
 
                 node.Remove();
 
-                images.Add(image);
+                _images.Add(image);
             }
 
             // Catch references
-            foreach (IDomElement _sup in dom.Find("sup.reference"))
+            foreach (IDomElement supNode in dom.Find("sup.reference"))
             {
-                CQ sup = new CQ(_sup);
+                var sup = new CQ(supNode);
                 CQ footnote = "<span class=\"fn\"></span>";
                 CQ oldFootnote = dom.Find("#" + sup.Attr("id").Replace("_ref-", "_note-"));
 

@@ -1,54 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BakaPrince
 {
     class Image
     {
-        public readonly string ID;
+        public readonly string Id;
         public readonly float Width;
         public readonly float Height;
         public readonly string Path;
         public bool Sashie = false;
 
-        private float a5width = 5.8f;
-        private float a5height = 8.3f;
+        private const float A5Width = 5.8f;
+        private const float A5Height = 8.3f;
 
         public Image(string url, Uri basePath) {
-            ID = "i" + Helper.CalculateMD5Hash(url);
-            Uri location = new Uri(basePath, url);
+            Id = "i" + Helper.CalculateMD5Hash(url);
+            var location = new Uri(basePath, url);
 
             // Load image
             Console.WriteLine("Fetching image {0}", url);
-            using (Stream stream = Helper.GetFile(location, ID))
+            using (Stream stream = Helper.GetFile(location, Id))
             {
-                System.Drawing.Image image = Bitmap.FromStream(stream);
+                System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
                 if (image.Width > image.Height)
                 {
                     // Landscape
-                    Width = a5height;
-                    Height = a5height / image.Width * image.Height;
+                    Width = A5Height;
+                    Height = A5Height / image.Width * image.Height;
                 }
                 else
                 {
                     // Portrait
-                    Width = a5width;
-                    Height = a5width / image.Width * image.Height;
+                    Width = A5Width;
+                    Height = A5Width / image.Width * image.Height;
                 }
             
             }
-            Path = Helper.GetTemp(ID);
+            Path = Helper.GetTemp(Id);
         }
 
     
-        public string HTML
+        public string Html
         {
             get
             {
@@ -61,7 +54,7 @@ namespace BakaPrince
                 {
                     classes += " landscape";
                 }
-                string html = String.Format("<div class=\"image {0} {1}\"></div>{2}", ID, classes, Style);
+                string html = String.Format("<div class=\"image {0} {1}\"></div>{2}", Id, classes, Style);
 
                 //if (Sashie && Height >= Width)
                 //{
@@ -103,7 +96,7 @@ namespace BakaPrince
 	                    width: {1}in;
 	                    height: {2}in;
                      }}
-                ", ID, Width, Height, new Uri(Path), (Sashie && Height > Width) ? "auto" : "p" + ID);
+                ", Id, Width, Height, new Uri(Path), (Sashie && Height > Width) ? "auto" : "p" + Id);
             }
         }
     }

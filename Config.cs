@@ -1,40 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
-using System.Collections;
-
 
 
 namespace BakaPrince
 {
     class Config
     {
-        private Uri location;
-        private JObject config;
+        private readonly Uri _location;
+        private readonly JObject _config;
 
         public Dictionary<string, List<string>> Contributors = new Dictionary<string, List<string>>();
 
         public readonly string Title;
         public readonly string Project;
 
-        private List<Image> images = new List<Image>();
-        private List<Page> pages = new List<Page>();
+        private readonly List<Image> _images = new List<Image>();
+        private readonly List<Page> _pages = new List<Page>();
 
 
         public Config(string jsonLocation)
         {
-            location = new Uri(jsonLocation);
+            _location = new Uri(jsonLocation);
 
-            WebRequest req = HttpWebRequest.Create(location);
+            WebRequest req = WebRequest.Create(_location);
             using (Stream stream = req.GetResponse().GetResponseStream())
             {
-                config = JObject.Load(new JsonTextReader(new StreamReader(stream)));
+                if (stream != null) _config = JObject.Load(new JsonTextReader(new StreamReader(stream)));
 
                 ParseImages();
                 ParsePages();
@@ -45,31 +41,28 @@ namespace BakaPrince
                 ParseContributorList("editors");
 
                 
-                if (config["title"] != null)
+                if (_config["title"] != null)
                 {
-                    Title = (string)config["title"];
+                    Title = (string)_config["title"];
                 }
-                if (config["project"] != null)
+                if (_config["project"] != null)
                 {
-                    Project = (string)config["project"];
+                    Project = (string)_config["project"];
                 }
             }
         }
 
 
 
-        public string BaseURL
+        public string BaseUrl
         {
             get
             {
-                if (pages.Count > 0)
+                if (_pages.Count > 0)
                 {
-                    return pages[0].Wiki;
+                    return _pages[0].Wiki;
                 }
-                else
-                {
-                    return (new Uri(AppDomain.CurrentDomain.BaseDirectory)).ToString();
-                }
+                return (new Uri(AppDomain.CurrentDomain.BaseDirectory)).ToString();
             }
         }
 
@@ -77,7 +70,7 @@ namespace BakaPrince
         {
             get
             {
-                return pages.ToArray();
+                return _pages.ToArray();
             }
         }
 
@@ -85,7 +78,7 @@ namespace BakaPrince
         {
             get
             {
-                return images.ToArray();
+                return _images.ToArray();
             }
         }
 
@@ -99,49 +92,47 @@ namespace BakaPrince
             
             List<string> list = Contributors[key];
 
-            if (config[key] != null && config[key] is JArray)
+            if (_config != null && (_config[key] is JArray))
             {
-                foreach (JToken token in (JArray)config[key])
-                {
-                    if (token is JValue)
-                    {
-                        list.Add(token.ToString());
-                    }
-                }
+                list.AddRange(_config[key].OfType<JValue>().Select(token => token.ToString()));
             }
         }
 
         private void ParsePages() {
-            if (config["pages"] != null)
+            if (_config["pages"] != null)
             {
-                foreach (object pageOptions in config["pages"])
+                foreach (JToken pageOptions in _config["pages"])
                 {
-                    Page page = new Page();
-                    if (config["defaults"] != null)
+                    var page = new Page();
+                    if (_config["defaults"] != null)
                     {   
-                        page.ApplyConfig((JObject)config["defaults"]);
+                        page.ApplyConfig((JObject)_config["defaults"]);
                     }
 
                     if (pageOptions is JValue)
                     {
                         page.Name = pageOptions.ToString();   
                     }
-                    else if (pageOptions is JObject)
+                    else
                     {
-                        page.ApplyConfig((JObject)pageOptions);
+                        var o = pageOptions as JObject;
+                        if (o != null)
+                        {
+                            page.ApplyConfig(o);
+                        }
                     }
 
-                    pages.Add(page);
+                    _pages.Add(page);
                 }
             }
         }
 
         private void ParseImages()
         {
-            if (config["images"] != null)
+            if (_config["images"] != null)
             {
-                foreach(string image in config["images"]) {
-                    images.Add(new Image(image, location));
+                foreach(string image in _config["images"]) {
+                    _images.Add(new Image(image, _location));
                 }
             }
         }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using CsQuery;
 using System.Data.Entity.Design.PluralizationServices;
@@ -30,7 +28,7 @@ namespace BakaPrince
         {
             prince = new Prince(princePath);
 
-            // We are dealing with HTML
+            // We are dealing with Html
             prince.SetHTML(true);
 
             // Add default stylesheets
@@ -57,7 +55,7 @@ namespace BakaPrince
         /// <param name="path">Path where to save the file.</param>
         public void Create(string path) {
             // Set base url to the Wiki URL (for images that we didn't catch, etc.)
-            prince.SetBaseURL(conf.BaseURL);
+            prince.SetBaseURL(conf.BaseUrl);
 
             // Init builder
             StringBuilder htmlBuilder = new StringBuilder();
@@ -67,15 +65,15 @@ namespace BakaPrince
             Console.WriteLine("Creating color pages...");
             foreach (Image image in conf.Images)
             {
-                htmlBuilder.Append(image.HTML);
+                htmlBuilder.Append(image.Html);
             }
 
 
             Console.WriteLine("Compiling chapters...");
-            // Compile HTML
+            // Compile Html
             foreach (Page page in conf.Pages)
             {
-                htmlBuilder.Append(page.HTML);
+                htmlBuilder.Append(page.Html);
             }
 
             CloseBuilder(htmlBuilder);
@@ -94,9 +92,6 @@ namespace BakaPrince
 
         private void MoveDisclaimer(string path)
         {
-            
-            PdfDocument outputDocument = new PdfDocument();
-
             using (PdfDocument importDoc = PdfReader.Open(path, PdfDocumentOpenMode.Import))
             using (PdfDocument modifyDoc = PdfReader.Open(path, PdfDocumentOpenMode.Modify))
             {
@@ -105,14 +100,6 @@ namespace BakaPrince
                 modifyDoc.Pages.Insert(conf.Images.Length, page);
 
                 modifyDoc.Save(path);
-            }
-        }
-
-        private void CompileCss(Image[] images, StringBuilder builder)
-        {
-            foreach (Image image in images)
-            {
-                builder.Append(image.Rules);
             }
         }
 
@@ -175,9 +162,6 @@ namespace BakaPrince
 
             table.Append(String.Format("<tr><th>PDF creation date</th><td>{0}</td>", DateTime.Today.ToString("yyyy-MM-dd")));
             builder.Append(disclaimer.Render());
-
-            string rendered = disclaimer.Render();
-
         }
     }
 

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NDesk.Options;
 using System.Text.RegularExpressions;
 
@@ -16,11 +13,12 @@ namespace BakaPrince
         {
             //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c" };
             bool showHelp = false;
-            string configPath = null;
+            string configPath;
             string outputPath = null;
             string princePath = null;
 
-            var p = new OptionSet() {
+            var p = new OptionSet
+            {
                 { "p|prince=", "the {PATH} where PrinceXML is located. Leave away to find it automatically.",
                    v => princePath = v },
                 { "o", "where to write the resulting PDF",
@@ -94,18 +92,19 @@ namespace BakaPrince
             string uninstallKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(uninstallKey))
             {
-                foreach (string skName in rk.GetSubKeyNames())
-                {
-                    using (RegistryKey sk = rk.OpenSubKey(skName))
+                if (rk != null)
+                    foreach (string skName in rk.GetSubKeyNames())
                     {
-                        if ( (string)sk.GetValue("DisplayName") == "Prince"
-                            && (string)sk.GetValue("Publisher") == "Yes Logic Pty Ltd")
+                        using (RegistryKey sk = rk.OpenSubKey(skName))
                         {
-                            return ((string)sk.GetValue("InstallLocation")) + @"Engine\bin\prince.exe";
+                            if ( sk != null && ((string)sk.GetValue("DisplayName") == "Prince"
+                                                && (string)sk.GetValue("Publisher") == "Yes Logic Pty Ltd"))
+                            {
+                                return ((string)sk.GetValue("InstallLocation")) + @"Engine\bin\prince.exe";
+                            }
                         }
-                    }
 
-                }
+                    }
             }
 
             throw new PrinceNotFoundException("Could not find an installation of PrinceXML on your system. Download it at http://www.princexml.com/");
@@ -113,7 +112,7 @@ namespace BakaPrince
 
         private static string DetermineOutputPath(string configPath)
         {
-            string outputPath = null;
+            string outputPath;
 
             // Start by normalizing config path
             Uri inputPath = new Uri(configPath);
