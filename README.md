@@ -20,7 +20,8 @@ Set the default config for your pages.
 * `title`: Text that will be displayed for the chapter [`name`]
 * `prefix`: String that should be prepended to `name`. E.g. "Volume 1 "
 * `wiki`: Url to the wiki where the pages are [http://www.baka-tsuki.org/project/]
-* `notitle`: Whether or not the script should hold off making a visible title for the chapter [false]
+* `notitle`: Whether or not the script should hold off making a visible title for the chapter (the header will still be created) [false]
+* `noheader`: Whether or not to hide the header [false]
 * `pagebreak`: Whether or not there should be a pagebreak before the chapter [true]
 * `entrypicture`: Whether or not the first picture should be placed before the title [false]
 
