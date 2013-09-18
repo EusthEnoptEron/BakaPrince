@@ -5,8 +5,17 @@ C# application that uses PrinceXML to generate PDFs from Baka-Tsuki's projects. 
 
 
 ## Usage
-CLI interface is not currently done.
+```
+Usage: bakaprince [OPTIONS]+ config-path
+Create a PDF from a Baka-Tsuki project.
 
+Options:
+  -p, --prince=PATH          the PATH where PrinceXML is located. Leave away
+                               to find it automatically.
+  -o                         where to write the resulting PDF
+  -h, --help                 show this message and exit
+  -c, --cache                enable caching
+```
 
 ## JSON format
 ### Keys
