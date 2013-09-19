@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 
 namespace BakaPrince.PDF
 {
+    [JsonConverter(typeof(ImageToStringConverter))]
     class Image
     {
         public readonly string Url;
@@ -114,9 +116,29 @@ namespace BakaPrince.PDF
             }
         }
 
-        internal JToken ToJSON()
+
+        class ImageToStringConverter : JsonConverter
         {
-            return new JValue(Url);
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                writer.WriteValue(((Image)value).Url);
+            }
+
+            public override bool CanRead
+            {
+                get { return false; }
+            }
+
+            public override bool CanConvert(Type objectType) {
+                return objectType == typeof(Image);
+            }
         }
+
     }
 }

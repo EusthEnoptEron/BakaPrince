@@ -37,7 +37,7 @@ namespace BakaPrince.Commands
 
                 conf.Title = project.Title;
                 conf.Project = project.Url;
-                //conf.Images.AddRange(volume.Illustrations);
+                conf.Images.AddRange(volume.Illustrations);
                 conf.Pages.AddRange(
                     volume.Chapters.Select(v => { return new Page() { Name = v.Name, Title = v.Title }; })
                 );

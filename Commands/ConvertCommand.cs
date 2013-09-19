@@ -16,6 +16,7 @@ namespace BakaPrince.Commands
         private string _princePath = null;
         private string _outputPath = null;
         private string _stylesheet = null;
+        private int _volumeNum = 0;
 
         public override OptionSet Options
         {
@@ -29,7 +30,6 @@ namespace BakaPrince.Commands
                        v =>  _outputPath = v },
                     { "s|stylesheet=", "specify an additional stylesheet to use",
                        v => _stylesheet = v },
-
                     // Handled by Program.cs
                     { "c|cache", "enable caching", 
                        v => {} },

@@ -14,8 +14,8 @@ namespace BakaPrince
         static void Main(string[] args)
         {
 
-            args = new string[] { @"parse", "Utsuro no Hako to Zero no Maria", "-v", "2", "-c" };
-            //args = new string[] { @"convert", "http://www.zomg.ch/baka/config/hantsuki.json", "-c" };
+            //args = new string[] { @"parse", "Kamisama_no_Memochou", "-v", "2", "-c" };
+            args = new string[] { @"convert", "http://www.zomg.ch/baka/config/hantsuki.json", "-c" };
             //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c", "-s", "stylesheet.css" };
             Command command = null;
             string commandName;

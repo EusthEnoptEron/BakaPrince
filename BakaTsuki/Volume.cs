@@ -19,11 +19,22 @@ namespace BakaPrince.BakaTsuki
         /// <param name="hEl"></param>
         public Volume(CQ ul)
         {
-            foreach(IDomElement el in ul.Find("li").Skip(1)) {
-                var link = new CQ(el).Find("a:first");
+            ul.Find("li").Each((el) =>
+            {
+                var link = new CQ(el).Find("a").First();
+                if (link.Count() == 0) return;
 
-                _chapters.Add(new Chapter(Regex.Replace(link.Attr("href"), "^.+title=", ""),link.Text()));
-            }
+                var name = Regex.Replace(link.Attr("href"), "^.+title=", "");
+
+                if (name.Contains("Illustrations") && _illustrationsPage == null)
+                {
+                    _illustrationsPage = new IllustrationsPage(name);
+                }
+                else
+                {
+                    _chapters.Add(new Chapter(name, link.Text()));
+                }
+            });
         }
 
         public Chapter[] Chapters
@@ -38,6 +49,9 @@ namespace BakaPrince.BakaTsuki
         {
             get
             {
+                if (_illustrationsPage == null)
+                    return new Image[0];
+
                 return _illustrationsPage.Images;
             }
         }

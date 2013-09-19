@@ -21,6 +21,8 @@ namespace BakaPrince.BakaTsuki
                 if (_volumes == null)
                 {
                     _volumes = new List<Volume>();
+                    string content = Content;
+
                     CQNode.Find("a:contains(Illustrations)").Each((i,el) => {
                         _volumes.Add(new Volume(new CQ(el).Closest("ul")));
                         }
