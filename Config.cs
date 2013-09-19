@@ -23,11 +23,11 @@ namespace BakaPrince
 
         private readonly List<Image> _images = new List<Image>();
         private readonly List<Page> _pages = new List<Page>();
-       
 
-        public Config(string jsonLocation)
+        public Config(string jsonLocation) : this(new Uri(Helper.Cwd, jsonLocation)) { }
+        public Config(Uri jsonLocation)
         {
-            _location = new Uri(Helper.Cwd, jsonLocation);
+            _location = jsonLocation;
 
             WebRequest req = WebRequest.Create(_location);
             using (Stream stream = req.GetResponse().GetResponseStream())

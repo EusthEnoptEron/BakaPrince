@@ -89,5 +89,6 @@ namespace BakaPrince
                 return new Uri(Directory.GetCurrentDirectory() + "\\");
             }
         }
+
     }
 }
