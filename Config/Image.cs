@@ -16,8 +16,8 @@ namespace BakaPrince.PDF
         public readonly string Path;
         public bool Sashie = false;
 
-        private const float A5Width = 5.8f;
-        private const float A5Height = 8.3f;
+        private const float _sheetWidth = 5.8f;
+        private const float _sheetHeight = 8.3f;
 
 
         protected Image(string url)
@@ -45,14 +45,14 @@ namespace BakaPrince.PDF
                     if (image.Width > image.Height)
                     {
                         // Landscape
-                        Width = A5Height;
-                        Height = A5Height / image.Width * image.Height;
+                        Width = _sheetHeight;
+                        Height = _sheetHeight / image.Width * image.Height;
                     }
                     else
                     {
                         // Portrait
-                        Width = A5Width;
-                        Height = A5Width / image.Width * image.Height;
+                        Width = _sheetWidth;
+                        Height = _sheetWidth / image.Width * image.Height;
                     }
 
                 }
@@ -72,6 +72,8 @@ namespace BakaPrince.PDF
             get
             {
                 string classes = "";
+                string html = "";
+
                 if (Sashie)
                 {
                     classes += "sashie";
@@ -80,8 +82,20 @@ namespace BakaPrince.PDF
                 {
                     classes += " landscape";
                 }
-                string html = String.Format("<div class=\"image {0} {1}\"></div>{2}", Id, classes, Style);
 
+                if (Sashie && Width < Height)
+                {
+                    html += "<div class=\"sashie-wrapper\">";
+                }
+                
+                html += String.Format("<div class=\"image {0} {1}\"></div></div>", Id, classes);
+
+                if (Sashie && Width < Height)
+                {
+                    html += "</div>";
+                }
+
+                html += Style;
                 //if (Sashie && Height >= Width)
                 //{
                 //    html += "<span class=\"image-stopper\"></span>";
@@ -122,7 +136,12 @@ namespace BakaPrince.PDF
 	                    width: {1}in;
 	                    height: {2}in;
                      }}
-                ", Id, Width, Height, new Uri(Helper.Cwd, Path), (Sashie && Height > Width) ? "auto" : "p" + Id);
+
+                    .sashie-wrapper .{0} {{
+                        top: {5}in;
+                    }}
+                ", Id, Width, Height, new Uri(Helper.Cwd, Path), (Sashie && Height > Width) ? "auto" : "p" + Id, (_sheetHeight - Height) / 2 );
+                
             }
         }
 

@@ -91,19 +91,26 @@ p {
 .counter,
 p {    string-set: pagecnt counter(page) }
 
+.sashie-wrapper {
+    width: 5.8in;
+    height: 8.3in;
+    position: relative;
+    top: -0.61in;
+    left: -0.6in;
+    float: top;
+
+}
 /* Normal sashies always appear at the top and have no footer */
 .sashie {
-    float: top;
     string-set: pagecnt "" chapter content();
-    margin-top: -0.61in;
-    margin-left: -0.6in;
 }
 /* landscape sashies get their own @page definition */
-.sashie.landscape {
+/*.sashie.landscape {
     float: none;
     margin-top: 0;
     margin-left: 0;
-}
+}*/
+
 .sashie:after {
     float: top;
     display: inline;
