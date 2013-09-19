@@ -29,6 +29,7 @@ namespace BakaPrince.Commands
                 _volumeNum = 1;
             }
 
+            Console.WriteLine("Trying to parse {0}...", projectName);
             Project project = new Project(projectName);
             if (project.Volumes.Length >= _volumeNum)
             {
@@ -43,6 +44,7 @@ namespace BakaPrince.Commands
                 );
 
                 File.WriteAllText(_outputPath, conf.ToJSON());
+                Console.WriteLine("Wrote to {0}", _outputPath);
             }
             else
             {

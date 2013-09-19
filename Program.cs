@@ -25,13 +25,14 @@ namespace BakaPrince
 
             var p = new OptionSet
             {
-                { "f|force-", "force re-download of files", 
+                { "f", "force re-download of files",
                    v => {
                        Helper.Caching = v == null;
                    }},
                 { "h|help",  "show this message and exit", 
                    v => showHelp = v != null }
             };
+
 
             List<string> extra;
             try
@@ -47,29 +48,34 @@ namespace BakaPrince
             }
 
             // Show help if necessary
-            if (extra.Count < 2 && !showHelp) ShowHelp(p);
+            if (extra.Count == 0) ShowHelp(p);
 
             // Validate arguments
-            commandName = extra.First();
-            switch (commandName)
+            foreach (string arg in extra)
             {
-                case "parse":
-                    command = new ParseCommand();
+                commandName = extra.First();
+                switch (commandName)
+                {
+                    case "parse":
+                        command = new ParseCommand();
 
-                    break;
-                case "convert":
-                    command = new ConvertCommand();
-                    break;
+                        break;
+                    case "convert":
+                        command = new ConvertCommand();
+                        break;
+                }
+                if (command == null) continue;
+                else break;
             }
 
-            if (showHelp)
+            if (showHelp || extra.Count < 2)
             {
                 ShowHelp(command != null ? command.Options : p);
             }
 
             if (command != null)
             {
-                List<string> newArgs = command.Options.Parse(args);
+                List<string> newArgs = command.Options.Parse(extra);
 
                 try
                 {
@@ -88,6 +94,7 @@ namespace BakaPrince
             {
                 ShowHelp(p);
             }
+            
         }
 
         static void ShowHelp(OptionSet p)

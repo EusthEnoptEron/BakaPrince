@@ -66,10 +66,10 @@
     <Compile Include="BakaTsuki\Volume.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ConvertCommand.cs" />
-    <Compile Include="Config\Config.cs" />
+    <Compile Include="PDF\Config.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Config\Image.cs" />
-    <Compile Include="Config\Page.cs" />
+    <Compile Include="PDF\Image.cs" />
+    <Compile Include="PDF\Page.cs" />
     <Compile Include="Commands\ParseCommand.cs" />
     <Compile Include="PrinceDocument.cs" />
     <Compile Include="PrinceNotFoundException.cs" />
