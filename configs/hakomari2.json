@@ -1,5 +1,6 @@
 {
 	"title": "Utsuro no Hako to Zero no Maria",
+	"project": "http://www.baka-tsuki.org/project/index.php?title=Utsuro_no_Hako_to_Zero_no_Maria",
 	"defaults": {
 		"prefix": "Utsuro_no_Hako:Volume2_",
 		"wiki": "http://www.baka-tsuki.org/project/",
@@ -27,6 +28,12 @@
 		{"name" : "May 5", "title" : "May 5 (Tuesday) Children's Day"},
 		{"name" : "May 18", "title" : "May 18 (Monday)"},
 		{"name" : "Author's Notes", "title" : "Author's Notes"}
+	],
+	"authors": [
+		"Eiji Mikage"
+	],
+	"artists": [
+		"Tetsuo"
 	],
 	"translators": [
 		"EusthEnoptEron"

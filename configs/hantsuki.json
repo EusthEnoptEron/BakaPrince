@@ -1,5 +1,6 @@
 {
 	"title": "Hanbun no Tsuki ga Noboru Sora",
+	"project": "http://www.baka-tsuki.org/project/index.php?title=Hanbun_no_Tsuki_ga_Noboru_Sora",
 	"defaults": {
 		"prefix": "HanTsuki:Volume 1 ",
 		"pagebreak": true,
@@ -24,8 +25,12 @@
 		"Afterword"
 	],
 	"translators": [
-		"Kinny Riddle"
+		"Pudding321"
 	],
-	"editors": [
+	"authors": [
+		"Tsumugu Hashimoto"
+	],
+	"artists": [
+		"Keiji Yamamoto"
 	]
 }

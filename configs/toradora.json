@@ -1,4 +1,6 @@
 {
+	"title": "Toradora!",
+	"project": "http://www.baka-tsuki.org/project/index.php?title=Toradora!",
 	"defaults": {
 		"prefix": "Toradora!:Volume1_",
 		"pagebreak": true,
@@ -23,9 +25,15 @@
 		"Chapter6",
 		"Author's Notes"
 		],
-		"translators": [
+	"translators": [
 		"Kinny Riddle"
-		],
-		"editors": [
-		]
-	}
+	],
+	"editors": [
+	],
+	"authors": [
+		"Yuyuko Takemiya"
+	],
+	"artists": [
+		"Yasu"
+	]
+}

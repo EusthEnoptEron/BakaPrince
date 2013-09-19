@@ -1,5 +1,6 @@
 {
 	"title": "Utsuro no Hako to Zero no Maria",
+	"project": "http://www.baka-tsuki.org/project/index.php?title=Utsuro_no_Hako_to_Zero_no_Maria",
 	"defaults": {
 		"prefix": "Utsuro_no_Hako:Volume1_",
 		"pagebreak": false,
@@ -11,7 +12,8 @@
 		"images/0maria_003_en.jpg",
 		"images/maria_004 copy.jpg",
 		"images/maria_005 copy.jpg",
-		"images/0maria_006 copy.jpg"
+		"images/0maria_006 copy.jpg",
+		"images/maria_007.jpg"
 	],
 	"pages" : [
 		{
@@ -88,12 +90,18 @@
 		{"name" : "Author's_Notes",
 		"title": "Author’s Notes",
 		"pagebreak": true}
-		],
-		"translators": [
+	],
+	"translators": [
 		"EusthEnoptEron"
-		],
-		"editors": [
+	],
+	"editors": [
 		"Kadi",
 		"grrarr"
-		]
-	}
+	],
+	"authors": [
+		"Eiji Mikage"
+	],
+	"artists": [
+		"Tetsuo"
+	],
+}

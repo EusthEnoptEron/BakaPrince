@@ -1,5 +1,6 @@
 {
 	"title": "Tsukumodo Antique Shop",
+	"project": "http://www.baka-tsuki.org/project/index.php?title=Tsukumodo_Antique_Shop",
 	"defaults": {
 		"prefix": "Tsukumodo:Volume 1 ",
 		"pagebreak": true,
@@ -13,16 +14,17 @@
 		"http://www.baka-tsuki.org/project/images/5/5e/Tsukumodo_005.jpg"
 	],
 	"pages" : [
-		"Prologue",
+		{
+			"name": "Prologue",
+			"notitle": true
+		},
 		"Coincidence",
 		"Statue",
 		"Memories and Notes",
 		"Present",
 		"Afterword"
-		],
-		"translators": [
-			"EusthEnoptEron"
-		],
-		"editors": [
-		]
-	}
+	],
+	"translators": [
+		"EusthEnoptEron"
+	]
+}
