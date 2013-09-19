@@ -58,3 +58,7 @@ Writer(s) involved in the light novel at hand.
 
 #### artists
 Artist(s) involved in the light novel at hand.
+
+
+#### stylesheets
+A list of stylesheets relative to the config file to include in the document.
