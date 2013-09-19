@@ -25,7 +25,7 @@ namespace BakaPrince.Commands
                 {
                     { "p|prince=", "the {PATH} where PrinceXML is located. Leave away to find it automatically.",
                        v => _princePath = v },
-                    { "o", "where to write the resulting PDF",
+                    { "o|output=", "where to write the resulting PDF",
                        v =>  _outputPath = v },
                     { "s|stylesheet=", "specify an additional stylesheet to use",
                        v => _stylesheet = v },
@@ -61,7 +61,7 @@ namespace BakaPrince.Commands
             }
 
             // Parse config
-            Config conf = new Config(inputPath);
+            PDF.Config conf = new PDF.Config(inputPath);
 
             // Generate document
             PrinceDocument doc = new PrinceDocument(conf, _princePath);

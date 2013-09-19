@@ -61,16 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BakaTsuki\BakaPage.cs" />
+    <Compile Include="BakaTsuki\IllustrationsPage.cs" />
+    <Compile Include="BakaTsuki\Volume.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ConvertCommand.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Config\Config.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Image.cs" />
-    <Compile Include="Page.cs" />
+    <Compile Include="Config\Image.cs" />
+    <Compile Include="Config\Page.cs" />
     <Compile Include="Commands\ParseCommand.cs" />
     <Compile Include="PrinceDocument.cs" />
     <Compile Include="PrinceNotFoundException.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="BakaTsuki\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

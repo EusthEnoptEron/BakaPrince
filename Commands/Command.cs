@@ -11,11 +11,17 @@ namespace BakaPrince.Commands
     {
         public abstract void Execute(string[] args);
 
+        /// <summary>
+        /// Helps determine the path where to save output.
+        /// </summary>
+        /// <param name="inputPath">Where the file comes from.</param>
+        /// <param name="extension">What extension to use (e.g. ".pdf")</param>
+        /// <returns></returns>
         protected string DetermineOutputPath(Uri inputPath, string extension)
         {
             string outputPath;
             
-            if (inputPath.ToString().StartsWith("file://"))
+            if (inputPath.IsFile)
             {
                 // Local path -> try to make name
                 outputPath = inputPath.LocalPath;

@@ -7,6 +7,7 @@ using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using BakaPrince.PDF;
 
 
 namespace BakaPrince
@@ -17,14 +18,14 @@ namespace BakaPrince
     class PrinceDocument
     {
         private Prince prince;
-        private Config conf;
+        private PDF.Config conf;
 
         /// <summary>
         /// Initialize document.
         /// </summary>
         /// <param name="conf">Config object that defines which pages and images to use.</param>
         /// <param name="princePath">Path to the PrinceXML binary.</param>
-        public PrinceDocument(Config conf, string princePath)
+        public PrinceDocument(PDF.Config conf, string princePath)
         {
             prince = new Prince(princePath);
 
@@ -103,7 +104,7 @@ namespace BakaPrince
             {
                 PdfPage page = importDoc.Pages[0];
                 modifyDoc.Pages.RemoveAt(0);
-                modifyDoc.Pages.Insert(conf.Images.Length, page);
+                modifyDoc.Pages.Insert(conf.Images.Count, page);
 
                 modifyDoc.Save(path);
             }

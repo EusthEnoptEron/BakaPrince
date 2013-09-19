@@ -60,6 +60,7 @@ namespace BakaPrince
 
         public static string GetString(Uri path)
         {
+            Console.WriteLine(path);
             string result;
             using (Stream stream = GetFile(path, CalculateMD5Hash(path.ToString()) + ".string"))
             {
