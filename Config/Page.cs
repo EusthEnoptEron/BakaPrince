@@ -98,9 +98,7 @@ namespace BakaPrince.PDF
             {
                 html = "<h2>" + Title + "</h2>" + html;
             }
-
              html = "<span class=\"invisible chapterstart\">" + (Noheader ? "" : Title) + "</span>" + html;
-            
            
             // Make sure page break is set
             if (Pagebreak)
@@ -154,7 +152,7 @@ namespace BakaPrince.PDF
                 sup.Before(footnote).Remove();
             }
             // Remove possible reference title
-            dom.Find("#references").Prev("h1, h2, h3").Remove();
+            dom.Find("#references").Prev(":header").Remove();
 
             // Remove edit links
             dom.Find(".editsection, #toc").Remove();

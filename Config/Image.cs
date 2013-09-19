@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Net;
 
 namespace BakaPrince.PDF
 {
@@ -36,22 +37,31 @@ namespace BakaPrince.PDF
 
             // Load image
             Console.WriteLine("Fetching image {0}", url);
-            using (Stream stream = Helper.GetFile(location, Id))
+            try
             {
-                System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
-                if (image.Width > image.Height)
+                using (Stream stream = Helper.GetFile(location, Id))
                 {
-                    // Landscape
-                    Width = A5Height;
-                    Height = A5Height / image.Width * image.Height;
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
+                    if (image.Width > image.Height)
+                    {
+                        // Landscape
+                        Width = A5Height;
+                        Height = A5Height / image.Width * image.Height;
+                    }
+                    else
+                    {
+                        // Portrait
+                        Width = A5Width;
+                        Height = A5Width / image.Width * image.Height;
+                    }
+
                 }
-                else
-                {
-                    // Portrait
-                    Width = A5Width;
-                    Height = A5Width / image.Width * image.Height;
-                }
-            
+            }
+            catch (WebException e)
+            {
+                Width = 0;
+                Height = 0;
+                Console.WriteLine("WARNING: couldn't fetch {0} ({1})", location, e.Message);
             }
             Path = Helper.GetTemp(Id);
         }

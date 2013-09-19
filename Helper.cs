@@ -8,7 +8,7 @@ namespace BakaPrince
 {
     class Helper
     {
-        public static bool Caching = false;
+        public static bool Caching = true;
 
         public static string CalculateMD5Hash(string input)
         {

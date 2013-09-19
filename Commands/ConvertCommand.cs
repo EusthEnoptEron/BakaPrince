@@ -29,12 +29,7 @@ namespace BakaPrince.Commands
                     { "o|output=", "where to write the resulting PDF",
                        v =>  _outputPath = v },
                     { "s|stylesheet=", "specify an additional stylesheet to use",
-                       v => _stylesheet = v },
-                    // Handled by Program.cs
-                    { "c|cache", "enable caching", 
-                       v => {} },
-                    { "h|help",  "show this message and exit", 
-                       v => {} }
+                       v => _stylesheet = v }
                 };
             }
         }
