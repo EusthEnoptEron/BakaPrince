@@ -90,11 +90,12 @@ p {
 }
 .counter,
 p {    string-set: pagecnt counter(page) }
+
 /* Normal sashies always appear at the top and have no footer */
 .sashie {
     float: top;
     string-set: pagecnt "" chapter content();
-    margin-top: -0.6in;
+    margin-top: -0.61in;
     margin-left: -0.6in;
 }
 /* landscape sashies get their own @page definition */
