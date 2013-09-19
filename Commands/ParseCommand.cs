@@ -55,7 +55,7 @@ namespace BakaPrince.Commands
             get {
                 return new NDesk.Options.OptionSet
                 {
-                    {"o", "output path",
+                    {"o|output=", "output path",
                         v => _outputPath = v },
                     {"v|volume=", "volume number",
                         (int v) => _volumeNum = v }
