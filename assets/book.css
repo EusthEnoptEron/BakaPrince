@@ -6,11 +6,16 @@
     LAYOUT  
  ********************************************************************/
 p {
-    text-indent: 0.3in;
+    text-indent: 0.2in;
     padding: 0;
     margin: 0;
     font-family: 'PT Serif', serif;
     font-size: 1.1em;
+    line-height: 1.3em;
+}
+
+sup {
+    font-size: .6em;
 }
 #disclaimer {    string-set: pagecnt "" }
 #disclaimer h2 {    prince-bookmark-label: none }
