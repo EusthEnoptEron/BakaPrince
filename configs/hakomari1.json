@@ -4,7 +4,8 @@
 	"defaults": {
 		"prefix": "Utsuro_no_Hako:Volume1_",
 		"pagebreak": false,
-		"wiki": "http://www.baka-tsuki.org/project/"
+		"wiki": "http://www.baka-tsuki.org/project/",
+		"entrypicture": true
 	},
 	"images": [
 		"images/cover_big.jpg",
