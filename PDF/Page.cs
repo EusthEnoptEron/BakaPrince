@@ -5,6 +5,8 @@ using CsQuery;
 using BakaPrince.BakaTsuki;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace BakaPrince.PDF
 {
@@ -156,7 +158,31 @@ namespace BakaPrince.PDF
 
             // Remove edit links
             dom.Find(".editsection, #toc").Remove();
-            
+
+            // Make smart quotes
+            dom.Find("p:contains('\"'), p:contains(\"'\")").Each((el) =>
+            {
+                CQ p = new CQ(el);
+                string pHtml = p.Html();
+                
+                // Replace quotes
+                if (Regex.Matches(pHtml, "&quot;").Count % 2 == 0)
+                {
+
+                    pHtml = Regex.Replace(pHtml, "&quot;(.+?)&quot;", "“$1”");
+                }
+                else
+                {
+                    Console.WriteLine("NOTICE: possible quotes problem ({0})", pHtml.Trim());
+                }
+
+                // Replace single quotes (\b doesn't work)
+                pHtml = Regex.Replace(pHtml, "(?<!\\w)'(.+?)'(?!\\w)", "‘$1’");
+                // Replace apostrophes
+                pHtml = Regex.Replace(pHtml, "'", "’");
+
+                p.Html(pHtml);
+            });
 
             // Hakomari specific
             foreach (IDomElement star in dom.Find("p:contains(✵)"))
