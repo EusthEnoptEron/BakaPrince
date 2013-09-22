@@ -160,7 +160,7 @@ namespace BakaPrince.PDF
             dom.Find(".editsection, #toc").Remove();
 
             // Make smart quotes
-            dom.Find("p:contains('\"'), p:contains(\"'\")").Each((el) =>
+            dom.Find("p:contains('\"'), p:contains(\"'\"), li:contains('\"'), li:contains(\"'\")").Each((el) =>
             {
                 CQ p = new CQ(el);
                 string pHtml = p.Html();
