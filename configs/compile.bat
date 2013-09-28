@@ -1,0 +1,1 @@
+..\bin\Release\bakaprince convert %1% -f
