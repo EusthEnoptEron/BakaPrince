@@ -1,0 +1,21 @@
+﻿/* Taken from http://www.princexml.com/forum/topic/75/xhtml-ruby-in-prince */
+ruby 
+	{display:inline-table;
+	text-align:center;
+	white-space:nowrap;
+	text-indent:0;
+	table-baseline:2;}
+ruby > rb, rbc, rtc
+	{display:table-row;} 
+ruby > rt, rbc + rtc
+	{display:table-header-group;}
+rbc > rb, rtc > rt
+	{display:table-cell;
+	padding:1px;}
+rt
+	{font-size:0.5em;
+	line-height:1.2em;} 
+rp 
+	{display:none;}
+rt[rbspan]
+	{table-column-span:attr(rbspan)}

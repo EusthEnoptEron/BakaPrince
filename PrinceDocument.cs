@@ -35,6 +35,7 @@ namespace BakaPrince
             // Add default stylesheets
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\mediawiki.css");
             prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\book.css");
+            prince.AddStyleSheet(AppDomain.CurrentDomain.BaseDirectory + "\\assets\\ruby.css");
 
             // Add additional stylesheets
             foreach (Uri path in conf.StyleSheets)

@@ -154,7 +154,7 @@ namespace BakaPrince.PDF
                 sup.Before(footnote).Remove();
             }
             // Remove possible reference title
-            dom.Find("#references").Prev(":header").Remove();
+            dom.Find(".references").Prev(":header").Remove();
 
             // Remove edit links
             dom.Find(".editsection, #toc").Remove();
@@ -182,6 +182,30 @@ namespace BakaPrince.PDF
                 pHtml = Regex.Replace(pHtml, "'", "’");
 
                 p.Html(pHtml);
+            });
+
+            // Parse Ruby
+            dom.Find("span > span > span").Each(el =>
+            {
+                var rubySpan = new CQ(el);
+                if(rubySpan.Css("position") == "relative" && rubySpan.Css("left") == "-50%") {
+                    var textSpan = rubySpan.Parent().Siblings("span");
+                    var containerSpan = textSpan.Parent();
+                    if (textSpan.Length == 1 && containerSpan.Css("white-space") == "nowrap")
+                    {
+                        // Okay, this is ruby.
+                        var ruby = new CQ("<ruby>");
+                        ruby.Html(textSpan.Html());
+                        ruby.Append(new CQ("<rp>(</rp>"));
+                        ruby.Append(new CQ("<rt>").Html(rubySpan.Html()));
+                        ruby.Append(new CQ("<rp>)</rp>"));
+
+                        containerSpan.ReplaceWith(
+                            ruby
+                        );
+                        
+                    }
+                }
             });
 
             // Hakomari specific
