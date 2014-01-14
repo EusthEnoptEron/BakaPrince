@@ -58,12 +58,14 @@ sup {
 }
 
 /* Style footnotes */
+.fn:first-child {
+    border-top: 1px solid black;
+}
 .fn {
     float: footnote;
     font-size: .8em !important;
     font-family: 'Alegreya', serif !important;
     color: black !important;
-    border-top: 1px solid black;
 }
 /* General class for elements with a PrinceXML effect that have to be hidden */
 .invisible {
