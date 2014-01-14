@@ -18,7 +18,9 @@ namespace BakaPrince
 
             //args = new string[] { @"parse", "Kamisama_no_Memochou", "-v", "2", "-c" };
             //args = new string[] { @"convert", "http://www.zomg.ch/baka/config/hantsuki.json" };
-            //args = new string[] { @" E:\Dev\prince\hakomari1.json", "-c", "-s", "stylesheet.css" };
+            //args = new string[] { @"E:\Dev\prince\hakomari1.json", "-c", "-s", "stylesheet.css" };
+            args = new string[] { @"convert", @"E:\Dev\prince\tests\Accel World1Return of Princess Snow Black978-4-04-867517-8.json" };
+
             Command command = null;
             string commandName;
             bool showHelp = false;
@@ -94,7 +96,8 @@ namespace BakaPrince
             {
                 ShowHelp(p);
             }
-            
+
+            Console.ReadLine();
         }
 
         static void ShowHelp(OptionSet p)

@@ -85,7 +85,7 @@ namespace BakaPrince.PDF
                 BakaPage page = new BakaPage(Prefix + Name, Wiki);
 
                 Console.WriteLine("Fetching page {0}", Name);
-                
+
                 _html = PrepareHtml(page.Content);
               
                 _fetched = true;
@@ -119,8 +119,10 @@ namespace BakaPrince.PDF
                 var a = new CQ(aNode);
                 var img = new CQ(a.Find("img"));
 
-                var image = new Image(img.Attr("src").Replace("/thumb", "")
-                   , new Uri(Wiki)) {Sashie = true};
+                var src = img.Attr("src").Replace("/thumb", "");
+                src = Regex.Replace(src, @"[.](jpg|png|gif)\/.+$", @".$1", RegexOptions.IgnoreCase);
+
+                var image = new Image(src, new Uri(Wiki)) {Sashie = true};
 
                 CQ node = a.Closest(".thumb").Add(a).First();
 

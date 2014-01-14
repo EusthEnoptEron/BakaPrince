@@ -33,26 +33,35 @@ namespace BakaPrince.PDF
         public Image(string url, Uri basePath) {
             Id = "i" + Helper.CalculateMD5Hash(url);
             var location = new Uri(basePath, url);
-            Url = location.AbsolutePath;
 
+            Url = location.AbsolutePath;
+           
             // Load image
-            Console.WriteLine("Fetching image {0}", url);
+            Console.WriteLine("Fetching image {0}", url, basePath);
             try
             {
                 using (Stream stream = Helper.GetFile(location, Id))
                 {
-                    System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
-                    if (image.Width > image.Height)
+                    try
                     {
-                        // Landscape
-                        Width = _sheetHeight;
-                        Height = _sheetHeight / image.Width * image.Height;
-                    }
-                    else
-                    {
-                        // Portrait
-                        Width = _sheetWidth;
-                        Height = _sheetWidth / image.Width * image.Height;
+                        System.Drawing.Image image = System.Drawing.Image.FromStream(stream);
+
+                        if (image.Width > image.Height)
+                        {
+                            // Landscape
+                            Width = _sheetHeight;
+                            Height = _sheetHeight / image.Width * image.Height;
+                        }
+                        else
+                        {
+                            // Portrait
+                            Width = _sheetWidth;
+                            Height = _sheetWidth / image.Width * image.Height;
+                        }
+                    } catch(ArgumentException e) {
+                        Width = 0;
+                        Height = 0;
+                        Console.WriteLine("WARNING: couldn't fetch {0}", location);
                     }
 
                 }
