@@ -111,7 +111,7 @@ namespace BakaPrince.PDF
             CQ dom = CQ.CreateFragment("<div class=\"content\">" + html + "</div>");
 
             // Remove next/prev table
-            dom.Find("table").Last().Remove();
+            dom.Find("table:contains('Forward'):contains('Back')").Last().Remove();
 
 
             // Find images
